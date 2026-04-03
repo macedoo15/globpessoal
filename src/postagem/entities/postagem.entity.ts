@@ -1,20 +1,27 @@
-import { IsNotEmpty} from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { IsNotEmpty } from "class-validator"
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Tema } from "../../tema/entities/tema.entity"
 
-@Entity({name: "tb_postagem"}) // cria uma tabela no banco
+@Entity({name: "tb_postagens"})
 export class Postagem {
 
-    @PrimaryGeneratedColumn() // cria uma chave primaria e auto increment
-    id!: number;
+    @PrimaryGeneratedColumn()    
+    id: number
 
-    @IsNotEmpty() // verifica se o campo esta vazio
-    @Column({length: 255, nullable: false})// cria uma coluna chamada titulo com 255 caracteres e nao pode ser nulo
-    titulo!: string;
+    @IsNotEmpty()
+    @Column({length: 100, nullable: false})
+    titulo: string
 
-    @IsNotEmpty() // verifica se o campo esta vazio
-    @Column() // cria uma coluna chamada texto
-    texto!: string;
+    @IsNotEmpty()
+    @Column({length: 1000, nullable: false})
+    texto: string
 
-    @UpdateDateColumn() // atualiza a data
-    data!: Date;
+    @UpdateDateColumn()
+    data: Date
+    
+    @ManyToOne(() => Tema, (tema) => tema.postagem, {
+        onDelete: "CASCADE"
+    })
+    tema: Tema
+
 }
