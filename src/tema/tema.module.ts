@@ -4,8 +4,9 @@ import { Tema } from "./entities/tema.entity";
 import { TemaController } from "./controllers/tema.controller";
 import { TemaService } from "./services/tema.service";
 
+
 @Module({
-    imports: [TypeOrmModule.forFeature([Tema])],
+    imports: [TypeOrmModule.forFeature([Tema])], 
     providers: [TemaService],
     controllers: [TemaController],
     exports: [TemaService]
